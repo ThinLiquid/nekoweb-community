@@ -1,0 +1,5 @@
+<a {...Astro.props}><slot /></a>
+<style>
+  a { color: var(--primary); }
+  a::after { content: '↗'; font-size: 0.5em; }
+</style>

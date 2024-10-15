@@ -1,0 +1,232 @@
+---
+import Ad from '../components/Ad.astro'
+import Link from '../components/Link.astro'
+import Logo from '../components/Logo.astro'
+import { formatDate } from '../utils'
+
+const { title } = Astro.props
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{title}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <main>
+      <div>
+        <a href="/">
+          <Logo />
+        </a>
+        <p style="margin: 0;" data-date>{formatDate(new Date())}</p>
+      </div>
+      
+      <!-- Theme Customization Button -->
+      <button id="theme-btn" style="margin-top: 10px;">Customize Theme</button>
+      
+      <!-- Theme Customization Dialog -->
+      <dialog id="theme-dialog">
+        <h3 style="margin: 0;">Customize Theme</h3>
+        <small>note: you can use any CSS color</small>
+        <form method="dialog" style="margin-top: 10px;">
+          <table style="width: 100%; border-spacing: 10px;">
+            <tr>
+              <td><label for="primary-color">Primary Color:</label></td>
+              <td><input type="text" id="primary-color" placeholder="#000000" /></td>
+            </tr>
+            <tr>
+              <td><label for="bg-color">Background Color:</label></td>
+              <td><input type="text" id="bg-color" placeholder="#00FF00" /></td>
+            </tr>
+            <tr>
+              <td><label for="text-color">Text Color:</label></td>
+              <td><input type="text" id="text-color" placeholder="#000000" /></td>
+            </tr>
+            <tr>
+              <td><label for="font-selector">Font Family:</label></td>
+              <td>
+                <input id="font-selector">
+              </td>
+            </tr>
+          </table>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
+            <button id="save-theme" style="padding: 5px 10px;">Save</button>
+            <button id="reset-theme" style="padding: 5px 10px;">Reset</button>
+            <button id="close-dialog" style="padding: 5px 10px;">Close</button>
+          </div>
+        </form>
+      </dialog>
+
+      <script>
+        const themeBtn = document.getElementById('theme-btn');
+        const themeDialog = document.getElementById('theme-dialog');
+        const closeDialogBtn = document.getElementById('close-dialog');
+        const saveThemeBtn = document.getElementById('save-theme');
+        const resetThemeBtn = document.getElementById('reset-theme');
+
+        const loadTheme = () => {
+          const savedTheme = JSON.parse(localStorage.getItem('custom-theme'));
+          if (savedTheme) {
+            document.documentElement.style.setProperty('--primary', savedTheme.primary);
+            document.documentElement.style.setProperty('--bg', savedTheme.bg);
+            document.documentElement.style.setProperty('--text', savedTheme.text);
+            document.body.style.fontFamily = savedTheme.font;
+            // Set input values
+            document.getElementById('primary-color').value = savedTheme.primary;
+            document.getElementById('bg-color').value = savedTheme.bg;
+            document.getElementById('text-color').value = savedTheme.text;
+            document.getElementById('font-selector').value = savedTheme.font;
+          }
+        };
+        loadTheme();
+
+        themeBtn.addEventListener('click', () => themeDialog.showModal());
+
+        closeDialogBtn.addEventListener('click', () => themeDialog.close());
+
+        saveThemeBtn.addEventListener('click', () => {
+          const primary = document.getElementById('primary-color').value;
+          const bg = document.getElementById('bg-color').value;
+          const text = document.getElementById('text-color').value;
+          const font = document.getElementById('font-selector').value;
+
+          const customTheme = { primary, bg, text, font };
+          localStorage.setItem('custom-theme', JSON.stringify(customTheme));
+
+          document.documentElement.style.setProperty('--primary', primary);
+          document.documentElement.style.setProperty('--bg', bg);
+          document.documentElement.style.setProperty('--text', text);
+          document.documentElement.style.setProperty('--font', font);
+
+          themeDialog.close();
+        });
+
+        resetThemeBtn.addEventListener('click', () => {
+          // Reset theme to defaults
+          const defaultTheme = {
+            primary: 'blue',
+            bg: 'white',
+            text: 'black',
+            font: "'Arial Narrow', Arial, sans-serif"
+          };
+          localStorage.setItem('custom-theme', JSON.stringify(defaultTheme));
+          loadTheme();
+        });
+      </script>
+
+      <br/>
+      
+      <Ad type="banner" alt="artwork by max (this spot could be yours!!!)" src="./party.webp" />
+      
+      <div class="body">
+        <slot />
+      </div>
+      
+      <footer>
+        &copy; 2024 <Link href="https://max.nekoweb.org">max</Link> & <Link href="https://thnlqd.nekoweb.org">ThinLiquid</Link>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --primary: blue;
+    --bg: white;
+    --text: black;
+    --font: 'Arial Narrow', Arial, sans-serif;
+
+    --dots: radial-gradient(color-mix(in oklab, var(--text), transparent 75%) 1px, transparent 1px);
+    --dots2: radial-gradient(color-mix(in oklab, var(--text), transparent 85%) 1px, transparent 1px);
+  }
+
+  * {
+    box-sizing: border-box;
+    image-rendering: pixelated;
+    font-family: var(--font);
+  }
+
+  main {
+    width: 800px;
+    max-width: 100%;
+    margin: auto;
+    height: 100%;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  body, html {
+    height: 100vh;
+    margin: 0;
+    color: var(--text);
+    background: var(--bg);
+  }
+  
+  img.bg {
+    background: var(--dots2);
+    background-size: 3px 3px;
+    display: block;
+  }
+  
+  h1, h2, h3, h4, h5, h6 { font-style: italic; color: var(--primary); } 
+  
+  .ad {
+    position: relative;
+    display: block;
+    border: 2px solid var(--primary);
+  }
+  
+  .ad img {
+    z-index: 99;
+  }
+  
+  .banner.ad > img {
+    aspect-ratio: 800/128;
+    width: 100%;
+    display: block;
+  }
+
+  .square.ad > img {
+    aspect-ratio: 1/1;
+    width: 100%;
+    display: block;
+  }
+  
+  .ad::before {
+    content: attr(data-info);
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+    padding: 2.5px 5px;
+    
+    background: var(--primary);
+    color: var(--bg);
+  }
+  
+  .body {
+    flex: 1;
+  }
+
+  dialog {
+    border: 1px solid var(--primary);
+    background: var(--bg);
+  }
+  
+  .body > * { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+  button, .btn {
+    background:var(--bg);
+    color:var(--primary);
+    border:1px solid var(--primary);
+    padding:10px;
+    text-align:center;
+  }
+
+  style, script { display: none!important; }
+</style>

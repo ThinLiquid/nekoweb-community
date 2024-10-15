@@ -1,0 +1,43 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	href: string;
+}
+
+const { href, title, body } = Astro.props;
+---
+
+<li>
+	<a href={href}>
+		<h2>
+			{title}
+			<span>&rarr;</span>
+		</h2>
+		<p>
+			{body}
+		</p>
+	</a>
+</li>
+<style>
+	li {
+		background: var(--dots2);
+		background-size: 3px 3px;
+		outline: 1px solid var(--text);
+		padding: 10px;
+		list-style: none;
+	}
+
+	li:hover {
+		outline: 2px solid var(--primary);
+	}
+
+	a > * {
+		margin: 0;
+	}
+
+	a {
+		color: var(--text);
+		text-decoration: none;
+	}
+</style>

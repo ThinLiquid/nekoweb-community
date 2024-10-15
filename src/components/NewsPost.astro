@@ -1,0 +1,15 @@
+---
+import { formatDate } from '../utils'
+
+interface Props {
+  title: string,
+  date: string
+}
+
+const { title, date } = Astro.props
+---
+<div>
+  <h3 style="margin: 0;">{title}</h3>
+  <small>{formatDate(new Date(date))}</small> &ndash;
+  <slot />
+</div>

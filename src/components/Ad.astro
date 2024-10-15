@@ -1,0 +1,18 @@
+---
+interface Props {
+  type: 'banner' | 'square',
+  alt: string,
+  src: string
+  href?: string
+}
+const { type, alt, src, href } = Astro.props
+
+const sizes: Record<string, [number, number]> = {
+  banner: [800, 128],
+  square: [512, 512]
+}
+---
+
+<a class={`${type} ad`} data-info={alt} href={href}>
+  <img class="bg" src={src} width={sizes[type]![0]} height={sizes[type]![1]} alt={alt} style={{ width: '100%', height: 'auto' }} />
+</a>

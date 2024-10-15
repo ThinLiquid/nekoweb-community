@@ -1,0 +1,20 @@
+---
+import Layout from './Layout.astro';
+import Countdown from '../components/Countdown.svelte';
+
+const { frontmatter } = Astro.props
+---
+<script>
+  import eruda from 'eruda';
+  eruda.init();
+</script>
+<Layout title={frontmatter.title}>
+  <h1 style="margin: 0;font-size:3em;">{frontmatter.title}</h1>
+  <p style="margin-bottom:0;">
+    <b>{frontmatter.description}</b>submissions end at {new Date(frontmatter.ends).toUTCString()} · {frontmatter.skill}
+  </p>
+  <div style="height: 20px;"></div>
+  time left:
+  <Countdown targetDate={new Date(frontmatter.ends)} client:load />
+  <slot/>
+</Layout>

@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import NewsPost from '../components/NewsPost.astro';
+import Ad from '../components/Ad.astro'
+
+import { Markdown } from '@astropub/md';
+
+import dedent from 'dedent'
+
+import news from '../news.ts';
+const events = Object.values(await import.meta.glob('../pages/events/*.md', { eager: true }));
+---
+<Layout title="nekoweb community">
+	
+
+	<div>
+		<Ad type="square" alt="community kat by max" src="./winner.webp" />
+		<Section title="events" open>
+				{events.map((x: any) => (
+					<Card href={x.url} title={x.frontmatter.title} body={`${x.frontmatter.skill} · ${x.frontmatter.description}`} />
+				))}
+		</Section>
+	</div>
+	<div>
+			<Section title="news" open>
+					{news.map(x => (
+						<NewsPost title={x.title} date={x.date}>
+							<Markdown.Inline of={dedent(x.body)} />
+						</NewsPost>
+					))}
+			</Section>
+	</div>
+</Layout>
+
+<style is:global>
+	.body {
+		display: flex;
+    gap: 10px;
+	}
+</style>

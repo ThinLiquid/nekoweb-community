@@ -1,0 +1,55 @@
+---
+const { title, ...props } = Astro.props
+---
+
+<details {...props}>
+  <summary><h2>{title}</h2></summary>
+  <div class="content">
+    <slot />
+  </div>
+</details>
+<style>
+  summary > * { display: inline-block;margin:0; }
+        
+  details summary {
+    padding: 10px;
+    background: var(--dots);
+    background-size: 3px 3px;
+    
+  }
+  
+  details[open] summary {
+      border-bottom: 1px solid var(--text);
+      
+  }
+  
+  details {
+      border: 1px solid var(--text);
+  }
+  
+  details .content {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  h2 {
+    background: linear-gradient(to right, color-mix(in oklab, var(--primary), transparent 85%), transparent);
+    width: 100%;
+    padding: 0 5px;
+  }
+
+
+  details[open] summary::marker {
+    content: '🡾 close'
+  }
+
+  summary::marker {
+    content: '🡼 open';
+  color: var(--primary);
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+</style>
