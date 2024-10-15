@@ -4,10 +4,6 @@ import Countdown from '../components/Countdown.svelte';
 
 const { frontmatter } = Astro.props
 ---
-<script>
-  import eruda from 'eruda';
-  eruda.init();
-</script>
 <Layout title={frontmatter.title}>
   <h1 style="margin: 0;font-size:3em;">{frontmatter.title}</h1>
   <p style="margin-bottom:0;">
