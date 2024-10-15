@@ -61,24 +61,24 @@ const { title } = Astro.props
       </dialog>
 
       <script>
-        const themeBtn = document.getElementById('theme-btn');
-        const themeDialog = document.getElementById('theme-dialog');
-        const closeDialogBtn = document.getElementById('close-dialog');
-        const saveThemeBtn = document.getElementById('save-theme');
-        const resetThemeBtn = document.getElementById('reset-theme');
+        const themeBtn: HTMLButtonElement = document.getElementById('theme-btn') as unknown as any;
+        const themeDialog: HTMLDialogElement = document.getElementById('theme-dialog') as unknown as any;
+        const closeDialogBtn: HTMLButtonElement = document.getElementById('close-dialog') as unknown as any;
+        const saveThemeBtn: HTMLButtonElement = document.getElementById('save-theme') as unknown as any;
+        const resetThemeBtn: HTMLButtonElement = document.getElementById('reset-theme') as unknown as any;
 
         const loadTheme = () => {
-          const savedTheme = JSON.parse(localStorage.getItem('custom-theme'));
+          const savedTheme = JSON.parse(localStorage.getItem('custom-theme')!);
           if (savedTheme) {
             document.documentElement.style.setProperty('--primary', savedTheme.primary);
             document.documentElement.style.setProperty('--bg', savedTheme.bg);
             document.documentElement.style.setProperty('--text', savedTheme.text);
             document.body.style.fontFamily = savedTheme.font;
             // Set input values
-            document.getElementById('primary-color').value = savedTheme.primary;
-            document.getElementById('bg-color').value = savedTheme.bg;
-            document.getElementById('text-color').value = savedTheme.text;
-            document.getElementById('font-selector').value = savedTheme.font;
+            (document.getElementById('primary-color') as HTMLInputElement).value = savedTheme.primary;
+            (document.getElementById('bg-color') as HTMLInputElement).value = savedTheme.bg;
+            (document.getElementById('text-color') as HTMLInputElement).value = savedTheme.text;
+            (document.getElementById('font-selector') as HTMLInputElement).value = savedTheme.font;
           }
         };
         loadTheme();
@@ -88,10 +88,10 @@ const { title } = Astro.props
         closeDialogBtn.addEventListener('click', () => themeDialog.close());
 
         saveThemeBtn.addEventListener('click', () => {
-          const primary = document.getElementById('primary-color').value;
-          const bg = document.getElementById('bg-color').value;
-          const text = document.getElementById('text-color').value;
-          const font = document.getElementById('font-selector').value;
+          const primary = (document.getElementById('primary-color') as HTMLInputElement).value;
+          const bg = (document.getElementById('bg-color') as HTMLInputElement).value;
+          const text = (document.getElementById('text-color') as HTMLInputElement).value;
+          const font = (document.getElementById('font-selector') as HTMLInputElement).value;
 
           const customTheme = { primary, bg, text, font };
           localStorage.setItem('custom-theme', JSON.stringify(customTheme));
