@@ -15,6 +15,6 @@ skill: Art
 5. png, webp, or jpeg files allowed
 
 # submit point
-<a style="width: 100%;" class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdHtSyUgUOVzfW6aRq0thHW9uLOCltBDEsYE3YcbNUsB7ZhcQ/viewform">
+<a style="width: 100%;" class="btn" href="https://forms.gle/KR7uxiRADG69mQe98">
   open submission form!
 </a>
