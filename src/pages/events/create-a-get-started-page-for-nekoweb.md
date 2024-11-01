@@ -8,13 +8,21 @@ skill: HTML/CSS
 ---
 
 # rules/guidelines
+
 1. needs to provide enough info for someone with no knowledge of html to check
 2. needs to be lightweight (trademark mentioned storage issues in the Discord)
 3. code needs to be easily editable and not confusing to read
 4. no usage of artificial intelligence allowed (GitHub Copilot included)
 5. must be hosted on a nekoweb domain
 
-# submit point
-<a style="width: 100%;" class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdHtSyUgUOVzfW6aRq0thHW9uLOCltBDEsYE3YcbNUsB7ZhcQ/viewform">
-  open submission form!
-</a>
+# submissions
+
+- [lel](https://lel.nekoweb.org/newpage)
+- [ourheroisasandwich](https://ourheroisasandwich.nekoweb.org/contents/getstarted)
+- [trademark](https://trademarkhell.net/newpage)
+- [isa](https://isa.nekoweb.org/community.html)
+
+<style>
+  a { color: var(--primary); }
+  a::after { content: '↗'; font-size: 0.5em; }
+</style>
