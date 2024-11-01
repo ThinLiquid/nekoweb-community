@@ -13,22 +13,22 @@ import dedent from 'dedent'
 import news from '../news.ts';
 const events = Object.values(await import.meta.glob('../pages/events/*.md', { eager: true }));
 ---
-<Layout title="nekoweb community">
+<Layout title="nekoweb community" description="da monopolizer of nekoweb">
 	
 
 	<div>
 		<Ad type="square" alt="community kat by max" src="./winner.webp" />
 		<Section title="events" open>
 				{events.map((x: any) => (
-					<Card href={x.url} title={x.frontmatter.title} body={`${x.frontmatter.skill} · ${x.frontmatter.description}`} />
+					<Card href={x.url} title={x.frontmatter.title}>{x.frontmatter.skill} · {x.frontmatter.description}</Card>
 				))}
 		</Section>
 	</div>
 	<div>
 			<Section title="news" open>
 					{news.map(x => (
-						<NewsPost title={x.title} date={x.date}>
-							<Markdown.Inline of={dedent(x.body)} />
+						<NewsPost title={x!.title} date={x!.date}>
+							<Markdown.Inline of={dedent(x!.body)} />
 						</NewsPost>
 					))}
 			</Section>
